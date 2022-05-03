@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import web3 from "../web3";
+import lottery from "../lottery";
 
 @Component({
   selector: "app-root",
@@ -7,14 +8,20 @@ import web3 from "../web3";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = "CodeSandbox";
+  manager: any;
 
-  ngOnInit() {}
+  async ngOnInit() {}
 
-  xyz() {
+  async xyz() {
     console.log("fddfssss");
-    // (window as any).sunnyleone = web3;
-    console.log(web3.eth);
-    web3.eth.requestAccounts().then(console.log);
+    let accounts;
+    accounts = await web3.eth.requestAccounts();
+    console.log(accounts);
+    // .then((acc) => (accounts = acc));
+    this.manager = await lottery.methods.manager().call({});
+    // .send({
+    //   from: accounts[0]
+    // });
+    console.log(lottery, this.manager);
   }
 }
