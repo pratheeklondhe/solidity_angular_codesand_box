@@ -10,18 +10,13 @@ import lottery from "../lottery";
 export class AppComponent {
   manager: any;
 
-  async ngOnInit() {}
+  ngOnInit() {
+    this.getContractDetails();
+  }
 
-  async xyz() {
-    console.log("fddfssss");
-    let accounts;
-    accounts = await web3.eth.requestAccounts();
-    console.log(accounts);
-    // .then((acc) => (accounts = acc));
+  async getContractDetails() {
+    await web3.eth.requestAccounts();
     this.manager = await lottery.methods.manager().call({});
-    // .send({
-    //   from: accounts[0]
-    // });
     console.log(lottery, this.manager);
   }
 }
